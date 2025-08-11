@@ -1,0 +1,19 @@
+test_type,input_data,expected_output
+Valid,www.abc.net.au,IP address string (e.g., 203.x.x.x)
+Valid,www.google.com,IP address string (e.g., 142.x.x.x)
+Valid,subdomain.example.com,IP address string
+Valid,www.bbc.co.uk,IP address string
+Valid,www.bom.gov.au,IP address string
+Valid,www.wikipedia.org,IP address string
+Invalid,"",ValueError
+Invalid,"   ",ValueError
+Invalid,not-a-domain,Socket error (gaierror)
+Invalid,www.invalid-tld.zzz,Socket error (gaierror)
+Invalid,@@@###.com,Socket error (gaierror)
+Invalid,http://www.google.com,ValueError or Socket error (depends on handling)
+Boundary,"\n",ValueError
+Boundary,"\t",ValueError
+Boundary,www.a.co,IP address string
+Boundary,www.averyveryveryverylongdomainnametest.com,IP address string or Socket error
+Boundary,www.local,IP address string or Socket error (depends on DNS)
+Boundary,localhost,IP address string (often 127.0.0.1)
