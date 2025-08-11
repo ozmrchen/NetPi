@@ -1,3 +1,4 @@
+# dns_lookup.py
 import socket
 
 website = input("Enter a website (e.g., www.google.com): ")
