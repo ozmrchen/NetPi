@@ -1,6 +1,16 @@
-# dns_lookup.py
+"""
+dns_lookup.py
+Ask for a website and print its IPv4 address.
+"""
 import socket
 
-website = input("Enter a website (e.g., www.google.com): ")
-ip_address = socket.gethostbyname(website)
-print(f"The IP address of {website} is {ip_address}")
+def main():
+    website = input("Enter a website (e.g., www.abc.net.au): ").strip()
+    try:
+        ip = socket.gethostbyname(website)
+        print(f"{website} resolves to {ip}")
+    except socket.gaierror as e:
+        print(f"DNS lookup failed for '{website}': {e}")
+
+if __name__ == "__main__":
+    main()
