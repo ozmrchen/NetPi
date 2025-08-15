@@ -1,287 +1,105 @@
-You're absolutely right! That's way too overwhelming for beginners. Let me redesign this with much simpler, bite-sized code examples.
+# Week 2.1 Code Practice: Security Scanner
 
-# Week 2.1 Code Practice: Simple Network Security Checker
-
-## Code Practice Overview
-Learn network security concepts through small, simple Python scripts. Each example is under 10 lines and focuses on one concept.
-
-**Time Required:** 45 minutes  
-**Python Level:** Complete Beginner  
-**Rule:** No code example longer than 10 lines!
+## Simple Security Automation
+**Time:** 20 minutes | **Rule:** Maximum 5 lines per script!
 
 ---
 
-## Part 1: Can We Connect? (10 minutes)
+## Script 1: Port Security Check (5 minutes)
 
-### Step 1.1: Test One Connection
-
-Create `test_connection.py`:
+Create `port_check.py`:
 
 ```python
-# test_connection.py
-import socket
-
-print("Testing if Google is reachable...")
-sock = socket.socket()
-result = sock.connect_ex(('google.com', 80))
-
-if result == 0:
-    print("✅ Google is reachable!")
-else:
-    print("❌ Cannot reach Google")
-    
-sock.close()
+import subprocess
+result = subprocess.run(['ss', '-tuln'], capture_output=True, text=True)
+open_ports = [line for line in result.stdout.split('\n') if 'LISTEN' in line]
+risky_ports = [line for line in open_ports if ':22' in line or ':23' in line]
+print(f"Open ports: {len(open_ports)} | Risky ports: {len(risky_ports)}")
 ```
 
-**Run it:** `python3 test_connection.py`
-
-**Questions:**
-1. What does the number `80` mean?
-2. What would happen if Google was down?
+**Run:** `python3 port_check.py`
 
 ---
 
-## Part 2: Check One Port (10 minutes)
+## Script 2: Connectivity Tester (5 minutes)
 
-### Step 2.1: Is Someone Home?
-
-Create `check_port.py`:
+Create `connection_test.py`:
 
 ```python
-# check_port.py
-import socket
-
-# Check if port 22 is open on your computer
-sock = socket.socket()
-sock.settimeout(1)  # Wait 1 second max
-
-result = sock.connect_ex(('localhost', 22))
-
-if result == 0:
-    print("🟢 Port 22 is OPEN")
-    print("Someone is listening!")
-else:
-    print("🔴 Port 22 is CLOSED")
-    print("Nobody home!")
-
-sock.close()
+import subprocess
+sites = ['google.com', 'facebook.com', 'github.com']
+for site in sites:
+    result = subprocess.run(['ping', '-c', '1', site], capture_output=True)
+    status = "✅ Reachable" if result.returncode == 0 else "❌ Blocked"
+    print(f"{site}: {status}")
 ```
 
-**Run it:** `python3 check_port.py`
-
-**Experiment:**
-- Try port 80: `('localhost', 80)`
-- Try port 443: `('localhost', 443)`
-- Try port 9999: `('localhost', 9999)`
+**Run:** `python3 connection_test.py`
 
 ---
 
-## Part 3: Check Multiple Ports (10 minutes)
+## Script 3: Security Risk Assessment (5 minutes)
 
-### Step 3.1: Loop Through Ports
-
-Create `scan_ports.py`:
+Create `security_risk.py`:
 
 ```python
-# scan_ports.py
-import socket
-
-ports_to_check = [22, 80, 443, 8080]
-
-print("Checking common ports...")
-
-for port in ports_to_check:
-    sock = socket.socket()
-    sock.settimeout(0.5)
-    result = sock.connect_ex(('localhost', port))
-    
-    if result == 0:
-        print(f"Port {port}: 🟢 OPEN")
-    else:
-        print(f"Port {port}: 🔴 CLOSED")
-    
-    sock.close()
+import subprocess
+ports = subprocess.run(['ss', '-tuln'], capture_output=True, text=True)
+port_count = len([l for l in ports.stdout.split('\n') if 'LISTEN' in l])
+risk = "HIGH" if port_count > 10 else "MEDIUM" if port_count > 5 else "LOW"
+print(f"Open ports: {port_count} | Security risk: {risk}")
 ```
 
-**Run it:** `python3 scan_ports.py`
-
-**Modify it:**
-- Add port 3000 to the list
-- Change `localhost` to `google.com`
-- Try different websites
+**Run:** `python3 security_risk.py`
 
 ---
 
-## Part 4: Make It a Function (10 minutes)
+## Script 4: Quick Security Report (5 minutes)
 
-### Step 4.1: Reusable Code
-
-Create `port_function.py`:
+Create `security_report.py`:
 
 ```python
-# port_function.py
-import socket
-
-def is_port_open(host, port):
-    """Check if a port is open. Returns True or False."""
-    sock = socket.socket()
-    sock.settimeout(1)
-    result = sock.connect_ex((host, port))
-    sock.close()
-    return result == 0
-
-# Test the function
-print("Testing our function...")
-print(f"Google port 80: {is_port_open('google.com', 80)}")
-print(f"Google port 22: {is_port_open('google.com', 22)}")
-print(f"Local port 22: {is_port_open('localhost', 22)}")
+import subprocess, socket
+# Get network info
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.connect(("8.8.8.8", 80))
+my_ip = sock.getsockname()[0]
+# Check ports
+ports = len([l for l in subprocess.run(['ss', '-tuln'], capture_output=True, text=True).stdout.split('\n') if 'LISTEN' in l])
+print(f"🛡️ Security Report\nIP: {my_ip} | Open ports: {ports}")
 ```
 
-**Run it:** `python3 port_function.py`
-
-**Questions:**
-1. Why do we return `True` or `False`?
-2. What's the advantage of using a function?
+**Run:** `python3 security_report.py`
 
 ---
 
-## Part 5: Security Report (10 minutes)
+## Challenge: Firewall Simulator
 
-### Step 5.1: Simple Security Check
-
-Create `security_check.py`:
+Create `firewall_sim.py`:
 
 ```python
-# security_check.py
-import socket
+def check_port_risk(port_num):
+    risky_ports = [22, 23, 3389, 21]
+    return "🔴 HIGH RISK" if port_num in risky_ports else "🟢 LOW RISK"
 
-def check_security(host):
-    """Check if common risky ports are open"""
-    risky_ports = [22, 23, 3389]  # SSH, Telnet, Remote Desktop
-    
-    print(f"Security check for {host}:")
-    
-    for port in risky_ports:
-        sock = socket.socket()
-        sock.settimeout(1)
-        result = sock.connect_ex((host, port))
-        sock.close()
-        
-        if result == 0:
-            print(f"⚠️  Port {port} is OPEN - could be risky!")
-        else:
-            print(f"✅ Port {port} is CLOSED - good!")
-
-# Check your own computer
-check_security('localhost')
+test_ports = [22, 80, 443, 23]
+for port in test_ports:
+    print(f"Port {port}: {check_port_risk(port)}")
 ```
 
-**Run it:** `python3 security_check.py`
-
-**Discussion:**
-- Which ports should worry a network administrator?
-- Why is port 22 sometimes risky?
+**Run:** `python3 firewall_sim.py`
 
 ---
 
-## Mini Challenges (5 minutes each)
-
-### Challenge 1: Website Checker
-```python
-# website_checker.py
-import socket
-
-websites = ['google.com', 'abc.net.au', 'github.com']
-
-for site in websites:
-    sock = socket.socket()
-    sock.settimeout(2)
-    result = sock.connect_ex((site, 443))
-    
-    if result == 0:
-        print(f"✅ {site} has HTTPS")
-    else:
-        print(f"❌ {site} no HTTPS found")
-    
-    sock.close()
-```
-
-### Challenge 2: Port Guesser
-```python
-# port_guesser.py
-import socket
-
-# Try to find ANY open port on your system
-for port in range(8000, 8010):
-    sock = socket.socket()
-    sock.settimeout(0.1)
-    result = sock.connect_ex(('localhost', port))
-    
-    if result == 0:
-        print(f"🎉 Found open port: {port}")
-        break
-    
-    sock.close()
-else:
-    print("No open ports found in range 8000-8010")
-```
+## What You Learned
+- **Automated security scanning:** Python can check ports like a firewall
+- **Risk assessment:** Count and categorise security threats
+- **Connectivity testing:** Automate network reachability tests
+- **Security reporting:** Combine multiple checks into reports
 
 ---
 
-## What You've Learned
-
-**Network Concepts:**
-- Ports are like doors on a computer
-- Open ports = services running
-- Closed ports = nothing listening
-- Some ports are riskier than others
-
-**Python Skills:**
-- Using the `socket` library
-- Functions that return True/False
-- Loops to check multiple items
-- Basic error handling with timeouts
-
-**Security Thinking:**
-- Fewer open ports = better security
-- Network scanning is how attackers explore
-- Firewalls block ports to protect systems
-
----
-
-## Quick Quiz
-
-**Answer in one sentence:**
-
-1. What does `result == 0` mean when checking a port?
-
-2. Why do we use `sock.settimeout(1)`?
-
-3. Which is more secure: 5 open ports or 1 open port?
-
-4. What would a firewall do with an open port 23 (Telnet)?
-
----
-
-## Extension: Build Your Own
-
-Pick ONE to try:
-
-**Option A: Speed Test**
-```python
-# How fast can you check 10 ports?
-import time
-start_time = time.time()
-# ... your port checking code ...
-end_time = time.time()
-print(f"Took {end_time - start_time:.2f} seconds")
-```
-
-**Option B: Save Results**
-```python
-# Save results to a file
-with open('scan_results.txt', 'w') as f:
-    f.write("My security scan results:\n")
-    # ... your scanning code ...
-    f.write(f"Port {port}: {status}\n")
-```
+## Quick Test
+1. What makes a port "risky"?
+2. Why automate security checks?
+3. How does this relate to firewall rules?

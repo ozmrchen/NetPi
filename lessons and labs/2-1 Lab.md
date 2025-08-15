@@ -1,296 +1,131 @@
-# Week 2.1 Lab: Exploring Network Security Components
+# Week 2.1 Lab: Basic Security Checking
 
 ## Lab Overview
-In this lab, you'll explore your computer's network connections, understand what services are running, and get hands-on experience with basic network security tools.
+Use your essential commands to check network security. Find open ports, test connections, and spot potential issues.
 
-**Time Required:** 45 minutes  
-**Environment:** GitHub Codespaces or Raspberry Pi 4  
-**Difficulty:** Beginner
-
----
-
-## Learning Objectives
-By the end of this lab, you will be able to:
-- Use command-line tools to examine network connections
-- Identify running network services on your system
-- Understand what network traffic looks like
-- Recognise normal vs suspicious network activity
+**Time Required:** 30 minutes  
+**Focus:** Security assessment with `ss`, `ping`, `ip`
 
 ---
 
-## Pre-Lab Setup
+## Part 1: Check Open Ports (10 minutes)
 
-### Option A: GitHub Codespaces
-1. Open your NetPi repository in Codespaces
-2. Open a new terminal
-3. You're ready to go!
-
-### Option B: Raspberry Pi 4
-1. Boot your Raspberry Pi and open Terminal
-2. Ensure you're connected to the network
-3. Test connectivity: `ping -c 3 google.com`
-
----
-
-## Part 1: Discovering Your Network Connections
-
-### Step 1.1: Check Active Network Connections
-
-Let's see what network connections your computer currently has:
+### Step 1.1: What's Listening?
 
 ```bash
-# Modern way to view network connections
+# See all open ports (firewall perspective)
 ss -tuln
 ```
 
-**What you're seeing:**
-- `t` = TCP connections
-- `u` = UDP connections  
-- `l` = Listening (waiting for connections)
-- `n` = Show numbers instead of names
+**Count and record:**
+- Total listening ports: _______
+- Ports open to everyone (0.0.0.0): _______
+- Local-only ports (127.0.0.1): _______
 
-**Your Output Should Look Like:**
-```
-State    Recv-Q   Send-Q     Local Address:Port      Peer Address:Port
-LISTEN   0        511        0.0.0.0:8080           0.0.0.0:*
-LISTEN   0        128        127.0.0.1:22           0.0.0.0:*
-```
-
-### Step 1.2: Understanding the Output
-
-**Record your observations:**
-
-1. **How many LISTEN connections do you see?** ________________
-
-2. **What ports are your system listening on?** ________________
-
-3. **Which connections are only local (127.0.0.1)?** ________________
-
-### Step 1.3: Alternative Method (Older Command)
-
-Try the traditional command:
+### Step 1.2: Security Assessment
 
 ```bash
-# Traditional way (older systems)
-netstat -tuln
+# Check for common risky ports
+ss -tuln | grep :22     # SSH
+ss -tuln | grep :23     # Telnet  
+ss -tuln | grep :80     # Web server
+ss -tuln | grep :3389   # Remote Desktop
 ```
 
-**Question:** Do you see the same information? What's different?
+**Security questions:**
+- Found port 22 (SSH)? Should it be open? _______
+- Found port 23 (Telnet)? This is high risk: _______
+- Any web servers running? _______
 
 ---
 
-## Part 2: Identifying Running Services
+## Part 2: Test Network Access (10 minutes)
 
-### Step 2.1: What's Using Those Ports?
-
-Let's find out what programs are using network ports:
+### Step 2.1: Connectivity Security Test
 
 ```bash
-# Show processes using network connections
-ss -tulnp
+# Test if you can reach suspicious/blocked sites
+ping -c 1 facebook.com
+ping -c 1 reddit.com
+ping -c 1 gaming-site.com
 ```
 
-The `p` flag shows the **process** (program) using each port.
+**Results:** Which sites can you reach? _______
 
-**Note:** You might see "users:()" for some connections - this means you don't have permission to see that process information.
+**Question:** Why might some be blocked?
 
-### Step 2.2: Research Common Ports
+### Step 2.2: Internal Network Scan
 
-Look up what these common ports are used for:
+```bash
+# Test other devices on your network
+ping -c 1 192.168.1.1    # Router
+ping -c 1 192.168.1.2    # Possible other device
+ping -c 1 192.168.1.100  # Another possible device
+```
 
-| Port Number | Service Name | What It's Used For |
-|-------------|--------------|-------------------|
-| 22          |              |                   |
-| 80          |              |                   |
-| 443         |              |                   |
-| 8080        |              |                   |
-
-**Hint:** Search online for "port 22 service" etc.
+**Devices found:** _______
 
 ---
 
-## Part 3: Testing Network Connectivity
+## Part 3: Network Security Info (10 minutes)
 
-### Step 3.1: Basic Connectivity Tests
-
-Test if you can reach different servers:
+### Step 3.1: Your Network Configuration
 
 ```bash
-# Test basic connectivity
-ping -c 3 google.com
-ping -c 3 abc.net.au
-ping -c 3 8.8.8.8
+# Check your network setup
+ip addr show | grep inet
+ip route show default
 ```
 
-**Record your results:**
-- Google: ⏱️ Average time: _______ ms
-- ABC News: ⏱️ Average time: _______ ms  
-- Google DNS: ⏱️ Average time: _______ ms
+**Record:**
+- Your IP: _______
+- Network range: _______
+- Router IP: _______
 
-### Step 3.2: Trace Network Path
-
-See the path your data takes to reach a destination:
+### Step 3.2: Interface Security
 
 ```bash
-# Trace route to ABC News (Australian site)
-traceroute abc.net.au
+# Check network interfaces
+ip link show
 ```
 
-**Questions:**
-1. How many "hops" (steps) does it take? ________________
-2. Can you identify your router/gateway? ________________
-3. Do you see any Australian network names? ________________
+**Security check:**
+- Using wired (eth0) or wireless (wlan0)? _______
+- Which is more secure? _______
 
 ---
 
-## Part 4: Understanding Network Security
+## Security Assessment Summary
 
-### Step 4.1: Check HTTP vs HTTPS
+**Rate your network security:**
 
-Let's see the difference between secure and insecure connections:
-
-```bash
-# Check website security headers
-curl -I http://neverssl.com
-echo "--- SECURE SITE ---"
-curl -I https://www.abc.net.au
-```
-
-**Compare the outputs:**
-- What's different in the headers?
-- Which one would a firewall treat differently?
-
-### Step 4.2: Simulate a Simple Port Scan
-
-**⚠️ Important:** Only scan your own system!
-
-```bash
-# Scan your own system for open ports
-# This shows what an attacker might see
-nc -zv localhost 1-1000 2>&1 | grep succeeded
-```
-
-**What you found:**
-- List the open ports: ________________
-- Should these be open? Why/why not?
+| Security Check | Result | Risk Level |
+|----------------|--------|------------|
+| Open ports count | _______ | High/Medium/Low |
+| SSH port open | Yes/No | _______ |
+| Web servers running | Yes/No | _______ |
+| Network type | Wired/Wireless | _______ |
 
 ---
 
-## Part 5: Monitoring Network Activity
+## Quick Security Questions
 
-### Step 5.1: Real-Time Connection Monitoring
+1. **Which is more secure - 3 open ports or 10 open ports?** _______
 
-Open a second terminal and run:
+2. **Should port 22 be open on a home computer?** _______
 
-```bash
-# Terminal 1: Monitor connections in real-time
-watch -n 2 'ss -tuln | wc -l'
-```
+3. **Is wireless or wired more secure?** _______
 
-```bash
-# Terminal 2: Create some network activity
-curl https://www.google.com
-curl https://github.com
-ping -c 5 reddit.com
-```
-
-**Observation:** Did the number of connections change?
-
-### Step 5.2: Check System Logs (If Available)
-
-```bash
-# Look for network-related log entries
-sudo tail -20 /var/log/syslog | grep -i network
-```
-
-**Note:** This might not work in Codespaces due to permissions.
+4. **If you found 20 devices on your network, is that good or bad?** _______
 
 ---
 
-## Reflection Questions
+## Lab Results
 
-### Security Analysis
+**Most concerning finding:** _______________________
 
-1. **Firewall Perspective:** If you were configuring a firewall for your system, which ports would you:
-   - ✅ **Allow:** ________________________________
-   - ❌ **Block:** ________________________________
+**Best security practice you observed:** _______________________
 
-2. **Threat Detection:** What network activity might indicate a security problem?
-   _______________________________________________
-
-3. **Normal vs Suspicious:** From what you observed, what seems like normal network behaviour?
-   _______________________________________________
-
-### Real-World Applications
-
-4. **School Network:** How might your school's network administrator use these tools?
-   _______________________________________________
-
-5. **Home Network:** What could you check at home to ensure your Wi-Fi is secure?
-   _______________________________________________
+**One thing you'd change:** _______________________
 
 ---
-
-## Extension Activities (If Time Permits)
-
-### Advanced: Create a Network Summary Script
-
-Create a simple bash script to summarise your network status:
-
-```bash
-# Create file: network_summary.sh
-nano network_summary.sh
-```
-
-```bash
-#!/bin/bash
-echo "=== Network Security Summary ==="
-echo "Date: $(date)"
-echo "Listening Ports: $(ss -tln | wc -l)"
-echo "Active Connections: $(ss -tn | wc -l)"
-echo "Can reach Google: $(ping -c 1 google.com > /dev/null && echo 'YES' || echo 'NO')"
-echo "=== End Summary ==="
-```
-
-```bash
-# Make it executable and run
-chmod +x network_summary.sh
-./network_summary.sh
-```
-
----
-
-## Lab Submission
-
-**Complete this summary:**
-
-1. **Number of listening ports found:** ________________
-2. **Most concerning open port (if any):** ________________
-3. **Average ping time to Australian site:** ________________
-4. **One thing that surprised you:** ________________________________
-5. **One security improvement you'd suggest:** ________________________________
-
-**Save your terminal output:**
-```bash
-# Save your findings
-ss -tulnp > my_network_connections.txt
-ping -c 3 abc.net.au >> my_network_connections.txt
-```
-
----
-
-## Troubleshooting
-
-**If commands don't work:**
-- `ss` not found → try `netstat -tuln`
-- `traceroute` not found → try `tracepath`
-- Permission denied → some commands need `sudo` (not available in Codespaces)
-- No internet → check your connection with `ping 8.8.8.8`
-
-**Need help?** Ask your teacher or a classmate!
-
----
-
-## Next Steps
-
-In our next **Code Practice** session, we'll build a Python script that automates some of these checks and creates our own simple network security scanner!
