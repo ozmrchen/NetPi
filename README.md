@@ -3,19 +3,19 @@
 **Week 1 Overview:** *Foundation knowledge and practical setup*
 
 ## Week 1.1: Network Hardware Components
-* [Week 1.1 Lesson](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/1.1%20Lesson.md)  
-* [Week 1.1 Lab](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/1.1%20Lab.md)  
-* [Week 1.1 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/1.1%20Code.md)
+* [Week 1.1 Lesson](https://github.com/ozmrchen/NetPi/blob/main/Week_1/1.1_Lesson.md)  
+* [Week 1.1 Lab](https://github.com/ozmrchen/NetPi/blob/main/Week_1/1.1_Lab.md)  
+* [Week 1.1 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/Week_1/1.1_Code.md)
 
 ## Week 1.2: Network Types in Practice
-* [Week 1.2 Lesson](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/1.2%20Lesson.md)  
-* [Week 1.2 Lab](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/1.2%20Lab.md)  
-* [Week 1.2 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/1.2%20Code.md)
+* [Week 1.2 Lesson](https://github.com/ozmrchen/NetPi/blob/main/Week_1/1.2_Lesson.md)  
+* [Week 1.2 Lab](https://github.com/ozmrchen/NetPi/blob/main/Week_1/1.2_Lab.md)  
+* [Week 1.2 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/Week_1/1.2_Code.md)
 
 ## Week 1.3: Linux Networking Essentials
-* [Week 1.3 Lesson](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/1.3%20Lesson.md)  
-* [Week 1.3 Lab](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/1.3%20Lab.md)  
-* [Week 1.3 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/1.3%20Code.md)
+* [Week 1.3 Lesson](https://github.com/ozmrchen/NetPi/blob/main/Week_1/1.3_Lesson.md)  
+* [Week 1.3 Lab](https://github.com/ozmrchen/NetPi/blob/main/Week_1/1.3_Lab.md)  
+* [Week 1.3 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/Week_1/1.3_Code.md)
 
 ---
 
