@@ -1,32 +1,28 @@
-from find_my_ip import get_local_ip
-import socket
+import socket, datetime
 
-def check_common_ports():
-    """Check a few common ports on localhost to see if they're open."""
-    common_ports = [22, 80, 443, 8080]  # SSH, HTTP, HTTPS, Alt HTTP
-    open_ports = []
-    
-    for port in common_ports:
-        try:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(1)  # Quick timeout to avoid delays
-            result = sock.connect_ex(("127.0.0.1", port))
-            sock.close()
-            if result == 0:  # 0 means the port is open
-                open_ports.append(port)
-        except socket.error:
-            pass  # Skip errors quietly for simplicity
-    
-    return open_ports
 
-# Generate a simple security report
-print("🛡️ Security Report")
-ip = get_local_ip()
-print(f"Local IP Address: {ip}")
+def openp(p):
+    try:
+        with socket.create_connection(("127.0.0.1", p), timeout=0.5):
+            return True
+    except Exception:
+        return False
 
-ports = check_common_ports()
-print(f"Open Ports: {len(ports)}")
-if ports:
-    print(f"Ports in use: {ports}")
-else:
-    print("No common ports (22, 80, 443, 8080) are open.")
+
+with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+    try:
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+    except Exception:
+        ip = "Unknown"
+R = {22: "SSH", 23: "TELNET", 80: "HTTP", 3389: "RDP"}
+ops = [p for p in R if openp(p)]
+surf = "HIGH" if len(ops) > 2 else "MEDIUM" if ops else "LOW"
+print(
+    f"\n🔍 SECURITY SCAN REPORT - {datetime.datetime.now():%Y-%m-%d %H:%M}\n📍 System IP: {ip}\n🔓 Open risky ports: {len(ops)}\n🎯 Attack surface: {surf}"
+)
+print(
+    "⚠️  Exposed services: " + ", ".join(f"{p}({R[p]})" for p in ops)
+    if ops
+    else "✅ No risky services detected"
+)
