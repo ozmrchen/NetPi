@@ -206,4 +206,10 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 .aider*
+<<<<<<< HEAD
+
+
+.idea/*
+=======
 .DS_Store
+>>>>>>> fc192aafff588a142fd6fc03a62c9b496bc5f750

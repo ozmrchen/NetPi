@@ -2,9 +2,14 @@
 name = "netpi"
 version = "0.1.0"
 description = "Add your description here"
+<<<<<<< HEAD
+requires-python = ">=3.12"
+dependencies = []
+=======
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "requests>=2.32.5",
     "scapy>=2.6.1",
 ]
+>>>>>>> fc192aafff588a142fd6fc03a62c9b496bc5f750
