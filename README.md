@@ -24,19 +24,20 @@
 **Week 2 Overview:** *Understanding threats and basic protection*
 
 ## Week 2.1: Network Security Components
-* [Week 2.1 Lesson](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/2.1%20Lesson.md) ✅  
-* [Week 2.1 Lab](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/2.1%20Lab.md) ✅  
-* [Week 2.1 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/2.1%20Code.md) ✅
+
+* [Week 2.1 Lesson](https://github.com/ozmrchen/NetPi/blob/main/Week_2/2.1_Lesson.md) ✅  
+* [Week 2.1 Lab](https://github.com/ozmrchen/NetPi/blob/main/Week_2/2.1_Lab.md) ✅  
+* [Week 2.1 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/Week_2/2.1_Code.md) ✅  
 
 ## Week 2.2: Communication Security
-* [Week 2.2 Lesson](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/2.2%20Lesson.md)  
-* [Week 2.2 Lab](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/2.2%20Lab.md)  
-* [Week 2.2 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/2.2%20Code.md)
+* [Week 2.2 Lesson](https://github.com/ozmrchen/NetPi/blob/main/Week_2/2.2_Lesson.md)  
+* [Week 2.2 Lab](https://github.com/ozmrchen/NetPi/blob/main/Week_2/2.2_Lab.md)  
+* [Week 2.2 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/Week_2/2.2_Code.md)  
 
 ## Week 2.3: Network Monitoring with Python
-* [Week 2.3 Lesson](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/2.3%20Lesson.md)  
-* [Week 2.3 Lab](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/2.3%20Lab.md)  
-* [Week 2.3 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/2.3%20Code.md)
+* [Week 2.3 Lesson](https://github.com/ozmrchen/NetPi/blob/main/Week_2/2.3_Lesson.md)  
+* [Week 2.3 Lab](https://github.com/ozmrchen/NetPi/blob/main/Week_2/2.3_Lab.md)  
+* [Week 2.3 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/Week_2/2.3_Code.md)
 
 ---
 
@@ -45,19 +46,19 @@
 **Week 3 Overview:** *Practical implementation and problem-solving*
 
 ## Week 3.1: Network Automation with Python
-* [Week 3.1 Lesson](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/3.1%20Lesson.md)  
-* [Week 3.1 Lab](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/3.1%20Lab.md)  
-* [Week 3.1 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/3.1%20Code.md)
+* [Week 3.1 Lesson](https://github.com/ozmrchen/NetPi/blob/main/Week_3/3.1_Lesson.md)  
+* [Week 3.1 Lab](https://github.com/ozmrchen/NetPi/blob/main/Week_3/3.1_Lab.md)  
+* [Week 3.1 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/Week_3/3.1_Code.md)
 
 ## Week 3.2: Network Troubleshooting
-* [Week 3.2 Lesson](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/3.2%20Lesson.md)  
-* [Week 3.2 Lab](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/3.2%20Lab.md)  
-* [Week 3.2 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/3.2%20Code.md)
+* [Week 3.2 Lesson](https://github.com/ozmrchen/NetPi/blob/main/Week_3/3.2_Lesson.md)  
+* [Week 3.2 Lab](https://github.com/ozmrchen/NetPi/blob/main/Week_3/3.2_Lab.md)  
+* [Week 3.2 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/Week_3/3.2_Code.md)
 
 ## Week 3.3: Best Practices
-* [Week 3.3 Lesson](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/3.3%20Lesson.md)  
-* [Week 3.3 Lab](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/3.3%20Lab.md)  
-* [Week 3.3 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/lessons%20and%20labs/3.3%20Code.md)
+* [Week 3.3 Lesson](https://github.com/ozmrchen/NetPi/blob/main/Week_3/3.3_Lesson.md)  
+* [Week 3.3 Lab](https://github.com/ozmrchen/NetPi/blob/main/Week_3/3.3_Lab.md)  
+* [Week 3.3 Code Practice](https://github.com/ozmrchen/NetPi/blob/main/Week_3/3.3_Code.md)
 
 ---
 
